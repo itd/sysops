@@ -1,0 +1,12 @@
+---
+# handlers file for sysops
+
+- name: "configtest before restart; fail immediately if our config is bad"
+  when: ansible_os_family == 'Debian'
+  command: service nginx configtest
+    warn=false
+  listen: restart nginx
+
+- name: "restart nginx service"
+  systemd: name=nginx state=restarted
+  listen: restart nginx

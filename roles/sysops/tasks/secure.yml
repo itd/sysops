@@ -1,0 +1,20 @@
+---
+# secure.yml
+# NOTE: This playbook *adds* rules.
+# It does not delete existing rules.
+
+- name: "Enable ufw firewall"
+  ufw: state=enabled policy=allow
+
+- name: "Disable default incoming"
+  ufw: direction=incoming policy=deny
+
+- name: "Allow ssh, but more securely"
+  ufw: rule=limit name=OpenSSH
+
+- name: "Allow http requests 80"
+  ufw: rule=allow port=80 proto=tcp
+
+- name: "Allow https requests 443"
+  ufw: rule=allow port=443 proto=tcp
+

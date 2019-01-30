@@ -1,0 +1,19 @@
+---
+# tasks file for sysops
+
+- name: "install nginx"
+  include: nginx.yml
+
+- name: "secure the box"
+  include: secure.yml
+
+- name: "Upload web app content"
+  copy:
+    src: "{{ item }}"
+    dest: "/var/www/html/{{ item }}"
+    owner: ubuntu
+    group: ubuntu
+    mode: 0644
+  notify: restart nginx
+  loop:
+    - "{{ lookup('fileglob', 'html/*').split(',') }}"
