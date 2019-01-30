@@ -7,13 +7,53 @@
 - name: "secure the box"
   include: secure.yml
 
+- name: "Create an ubuntu user, remove expiry time"
+  user:
+    name: ubuntu
+    uid: 2000
+    expires: -1
+    groups: adm, sudo
+    password: "{{ ubuntupass }}"
+    state: present
+    shell: /bin/bash
+    createhome: yes
+    generate_ssh_key: yes
+
+- name: "change directory file ownership, group, mode"
+  file:
+    path: "/var/www/html"
+    owner: ubuntu
+    group: ubuntu
+    # when specifying mode using octal numbers, add a leading 0
+    mode: 0755
+    state: directory
+
 - name: "Upload web app content"
   copy:
     src: "{{ item }}"
-    dest: "/var/www/html/{{ item }}"
+    dest: "/var/www/html/{{ item | basename }}"
     owner: ubuntu
     group: ubuntu
     mode: 0644
   notify: restart nginx
-  loop:
-    - "{{ lookup('fileglob', 'html/*').split(',') }}"
+  with_fileglob:
+    - "html/*"
+
+- shell: 'cat /home/ubuntu/.ssh/id_rsa'
+  register: rsakey
+- debug:
+    msg:
+    - "The secret rsa key for the ubuntu user is:"
+    - "{{ rsakey.stdout }}"
+  become: yes
+  become_user: root
+
+- name: "Print the IP addr / URL:"
+  vars:
+    ipaddr: |
+            ~@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            ~ ----> the remote IP address is:
+            ~      http://{{ ansible_default_ipv4.address }}
+            ~@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  debug:
+      msg: "{{ ipaddr.split('\n') }}"

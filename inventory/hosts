@@ -1,2 +1,5 @@
+# note: vagrant is not using this inventory file.
+# Vagrant will use the vagrant generated one by default.
+
 [webservers]
 10.254.254.11

@@ -3,8 +3,8 @@ Vagrant.require_version ">= 1.7.0"
 
 Vagrant.configure(2) do |config|
 
-  config.vm.box = "ubuntu/bionic64"
-  config.vm.network :hostonly, ip: "10.254.254.11", netmask: "255.0.0.0"
+  config.vm.box = "generic/ubuntu1804"
+  # config.vm.network :hostonly, ip: "10.254.254.11", netmask: "255.0.0.0"
 
   # Disable the new default behavior introduced in Vagrant 1.7, to
   # ensure that all Vagrant machines will use the same SSH key pair.
@@ -12,7 +12,22 @@ Vagrant.configure(2) do |config|
   config.ssh.insert_key = false
 
   config.vm.provision "ansible" do |ansible|
-    ansible.verbose = "v"
+    #ansible.verbose = "v"
     ansible.playbook = "infra-as-code.yml"
+    ansible.become = "yes"
+    ansible.become_user = "root"
   end
+
+  # set RAM and CPUs
+  ######################################################
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+    v.cpus = 1
+  end
+
+  config.vm.provider "libvirt" do |v|
+    v.memory = 1024
+    v.cpus = 1
+  end
+  ######################################################
 end

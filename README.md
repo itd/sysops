@@ -30,29 +30,31 @@ orchestration tools such as:
 - Microsoft: [Azure Resource Manager (ARM)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/)
 
 ## Prerequisites
-- Ansible is installed and accessible to the user running Vagrant. [Reference vagrant site](https://www.vagrantup.com/docs/provisioning/ansible.html)
+- Ansible 2.6+ is installed and accessible to the user running Vagrant. [Reference vagrant site](https://www.vagrantup.com/docs/provisioning/ansible.html)
 - Vagrant and VirtualBox are installed and configured. 
   Linux users may opt for libvirt/KVM as an alternative to VirtualBox.
 - The playbook assumes Ubuntu 18.04+ (Bionic)
 - The vagrant box is added
 
 ### How to add the vagrant box:
+Do this ahead of time to speed-up the demo!
 
-    vagrant box add ubuntu/bionic64
+    vagrant box add generic/ubuntu1804
     
 
 ## How to use this  
 
 Copy the code to your local dir
 
-Run the following:
+Run the following from the command line:
 
     vagrant up --provider=virtualbox
 
-Other provider options include: vmware_fusion, libvirt
+Other popular provider options include: ```vmware_fusion, libvirt, docker, hyper-v```
 
-Once the VM is created, run:
+Ref: [Vagrant providers](https://www.vagrantup.com/docs/providers/basic_usage.html)
 
-    vagrant provision
+Once the VM is created,  by running:
+
  
  
