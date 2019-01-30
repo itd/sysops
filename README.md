@@ -54,7 +54,19 @@ Other popular provider options include: ```vmware_fusion, libvirt, docker, hyper
 
 Ref: [Vagrant providers](https://www.vagrantup.com/docs/providers/basic_usage.html)
 
-Once the VM is created,  by running:
+Vagrant will create the VM and automatically provision the system using ansible.
+
+The output on the command line will show:
+
+    "msg": [
+        "~@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+        "~ ----> the remote IP address is:",
+        "~      http://xxx.xxx.xxx.xxx",
+        "~@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+        ""
+    ]
+
+Cut-n-paste the URL into your browser, and it "should" work.
 
  
  
