@@ -69,4 +69,15 @@ The output on the command line will show:
 Cut-n-paste the URL into your browser, and it "should" work.
 
  
+ # Useful commands
+ To get this repo:
  
+     git clone git@github.com:goldfish21/sysops.git
+
+     vagrant global-status
+     vagrant destroy -f  $status-id
+
+
+refs:
+  https://github.com/hashicorp/vagrant/wiki/Available-Vagrant-Plugins
+       

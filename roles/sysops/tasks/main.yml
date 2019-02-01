@@ -53,7 +53,10 @@
     ipaddr: |
             ~@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             ~ ----> the remote IP address is:
-            ~      http://{{ ansible_default_ipv4.address }}
+            
+            ~      http://127.0.0.1:8080/
+            
+            ~
             ~@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   debug:
       msg: "{{ ipaddr.split('\n') }}"
